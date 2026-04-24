@@ -145,18 +145,10 @@ setlocal matchpairs+=｟:｠
 setlocal matchpairs+=｢:｣
 let b:undo_ftplugin .= ' | setlocal matchpairs<'
 
-function! s:UsingPython2()
-  if has('python3')
-    return 0
-  endif
-  return 1
-endfunction
+let s:python_cmd = 'python3 '
+let s:python_loadfile = 'py3file '
 
-let s:using_python2 = s:UsingPython2()
-let s:python_cmd = s:using_python2 ? 'python ' : 'python3 '
-let s:python_loadfile = s:using_python2 ? 'pyfile ' : 'py3file '
-
-if has('python') || has('python3')
+if has('python3')
 
 function! s:LogAgda(name, text, append)
     let agdawinnr = bufwinnr('__Agda__')
@@ -253,16 +245,9 @@ nnoremap <buffer> <LocalLeader>h :call AgdaHelperFunction()<CR>
 nnoremap <buffer> <LocalLeader>d :call AgdaGotoAnnotation()<CR>
 nnoremap <buffer> <LocalLeader>m :AgdaMetas<CR>
 
-" Show/reload metas
-nnoremap <buffer> <C-e> :AgdaMetas<CR>
-inoremap <buffer> <C-e> <C-o>:AgdaMetas<CR>
-
 " Go to next/previous meta
-nnoremap <buffer> <silent> <C-g>  :let _s=@/<CR>/ {!\\| ?<CR>:let @/=_s<CR>2l
-inoremap <buffer> <silent> <C-g>  <C-o>:let _s=@/<CR><C-o>/ {!\\| ?<CR><C-o>:let @/=_s<CR><C-o>2l
-
-nnoremap <buffer> <silent> <C-y>  2h:let _s=@/<CR>? {!\\| \?<CR>:let @/=_s<CR>2l
-inoremap <buffer> <silent> <C-y>  <C-o>2h<C-o>:let _s=@/<CR><C-o>? {!\\| \?<CR><C-o>:let @/=_s<CR><C-o>2l
+nnoremap <buffer> <silent> ]m  :let _s=@/<CR>/ {!\\| ?<CR>:let @/=_s<CR>2l
+inoremap <buffer> <silent> [m  :let _s=@/<CR><C-o>/ {!\\| ?<CR><C-o>:let @/=_s<CR><C-o>2l
 
 AgdaReload
 
