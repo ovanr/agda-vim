@@ -153,7 +153,7 @@ function! s:UsingPython2()
 endfunction
 
 let s:using_python2 = s:UsingPython2()
-let s:python_cmd = s:using_python2 ? 'py ' : 'py3 '
+let s:python_cmd = s:using_python2 ? 'python ' : 'python3 '
 let s:python_loadfile = s:using_python2 ? 'pyfile ' : 'py3file '
 
 if has('python') || has('python3')
@@ -237,7 +237,7 @@ command! -buffer -nargs=0 AgdaSetRewriteModeSimplified exec s:python_cmd "setRew
 command! -buffer -nargs=0 AgdaSetRewriteModeHeadNormal exec s:python_cmd "setRewriteMode('HeadNormal')"
 command! -buffer -nargs=0 AgdaSetRewriteModeInstantiated exec s:python_cmd "setRewriteMode('Instantiated')"
 
-nnoremap <buffer> <LocalLeader>l :AgdaReload<CR>
+nnoremap <buffer> <LocalLeader>l :AgdaLoad<CR>
 nnoremap <buffer> <LocalLeader>t :call AgdaInfer()<CR>
 nnoremap <buffer> <LocalLeader>r :call AgdaRefine("False")<CR>
 nnoremap <buffer> <LocalLeader>R :call AgdaRefine("True")<CR>
